@@ -1,4 +1,4 @@
-# Michele Bologna's theme with minor customization
+# Michele Bologna's theme
 # http://michelebologna.net
 #
 # This a theme for oh-my-zsh. Features a colored prompt with:
@@ -70,6 +70,13 @@ ZSH_THEME_GIT_PROMPT_DIVERGED_REMOTE="$red<>"
 
 PROMPT='$username_output$hostname_output:$current_dir_output%1(j. [$jobs_bg].)'
 GIT_PROMPT='$(out=$(git_prompt_info)$(git_prompt_status)$(git_remote_status);if [[ -n $out ]]; then printf %s " $white($green$out$white)$reset";fi)'
-PROMPT+="$GIT_PROMPT"
+
+if [[ "${RPROMPT_MODE}" == 2 ]]; then
+    source $ZSH/custom/plugins/async-rprompt/async-rprompt.plugin.zsh
+elif [[ "${RPROMPT_MODE}" == 1 ]]; then
+    RPROMPT="$GIT_PROMPT"
+else
+    PROMPT+="$GIT_PROMPT"
+fi
+
 PROMPT+=" $last_command_output%#$reset "
-RPROMPT=''
