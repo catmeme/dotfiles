@@ -27,6 +27,6 @@ shopt -s checkwinsize
 shopt -s extglob
 
 # load all my bash functions and aliases
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f $HOME/.bash_aliases ]; then
+    . $HOME/.bash_aliases
 fi
