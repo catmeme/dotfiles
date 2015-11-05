@@ -6,7 +6,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="zed"
-# zed theme allows for 3 RPROMPT MODES
+# zed theme allows THREE RPROMPT MODES:
 # 0 - no right prompt, all git info in the left
 # 1 - right prompt with git info, not async
 # 2 - right prompt with git info, async
@@ -54,7 +54,7 @@ RPROMPT_MODE=2
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git async-rprompt)
+plugins=(git async-rprompt z)
 
 # User configuration
 

@@ -1,4 +1,4 @@
-# Michele Bologna's theme
+# Based on Michele Bologna's theme
 # http://michelebologna.net
 #
 # This a theme for oh-my-zsh. Features a colored prompt with:
@@ -22,6 +22,15 @@
 # * '>' if local repo is ahead remote repo
 # * '=' if local repo is equal to remote repo (in sync)
 # * '<>' if local repo is diverged
+#
+# RECOMMENDS: async-rprompt
+# Configure your RPROMPT_MODE variable in your ~/.zshrc
+# THREE RPROMPT MODES:
+# 0 - no right prompt, all git info in the left
+# 1 - right prompt with git info, not async
+# 2 - right prompt with git info, async
+#
+# e.g. RPROMPT_MODE=2
 
 local green="%{$fg_bold[green]%}"
 local red="%{$fg_bold[red]%}"
