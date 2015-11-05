@@ -8,12 +8,16 @@ Be sure to copy both .zshrc and .oh-my-zsh/ to your home directory.
 By default, zed.theme requires the following plugins not included with oh-my-zsh:
 
 zsh-syntax-highlighting
-```git clone git://github.com/tarruda/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins```
+```
+git clone git://github.com/tarruda/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins
+```
 
 zsh-autosuggestions
-```git clone git://github.com/jimmijj/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins```
+```
+git clone git://github.com/jimmijj/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins
+```
 
-These plugins are used to simulate fish-like behavior.
+These plugins are used to simulate [fish](http://fishshell.com)-like behavior.
 
 You can disable these and drop the requirement by commenting out the following variables in .zshrc:
 
