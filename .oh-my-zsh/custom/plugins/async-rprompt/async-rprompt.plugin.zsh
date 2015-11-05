@@ -1,8 +1,13 @@
 ## Async RPROMPT: http://www.anishathalye.com/2015/02/07/an-asynchronous-shell-prompt/
+# Define a RCMD() function in your theme that echos out your right prompt
 
-# Right-hand prompt
+# don't define functions if $RPROMPT_MODE isn't 2 and async-rprompt plugin is loaded
+if [[ "${RPROMPT_MODE}" != 2 ]]; then
+    return
+fi
+
 function RCMD() {
-    echo $GIT_PROMPT
+    echo $ASYNC_RPROMPT
 }
 
 RPROMPT='' # no initial prompt, set dynamically

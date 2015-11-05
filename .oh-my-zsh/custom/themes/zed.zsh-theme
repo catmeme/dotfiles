@@ -72,7 +72,8 @@ PROMPT='$username_output$hostname_output:$current_dir_output%1(j. [$jobs_bg].)'
 GIT_PROMPT='$(out=$(git_prompt_info)$(git_prompt_status)$(git_remote_status);if [[ -n $out ]]; then printf %s " $white($green$out$white)$reset";fi)'
 
 if [[ "${RPROMPT_MODE}" == 2 ]]; then
-    source $ZSH/custom/plugins/async-rprompt/async-rprompt.plugin.zsh
+    # ASYNC Right-hand prompt
+    ASYNC_RPROMPT="$GIT_PROMPT"
 elif [[ "${RPROMPT_MODE}" == 1 ]]; then
     RPROMPT="$GIT_PROMPT"
 else
@@ -80,3 +81,12 @@ else
 fi
 
 PROMPT+=" $last_command_output%#$reset "
+
+
+# Faster! (?)
+zstyle ':completion::complete:*' use-cache 1
+
+# generate descriptions with magic.
+zstyle ':completion:*' auto-description 'specify: %d'
+
+zstyle ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==34=31}:${(s.:.)LS_COLORS}")'
