@@ -77,6 +77,8 @@ local current_dir_output="$current_dir_color$current_dir$reset"
 local jobs_bg="${bred}fg: %j$reset"
 local last_command_output="%(?.%(!.$redb.$greenb).$yellowb)"
 
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=blue,fg=white,bold'
+
 ZSH_THEME_GIT_PROMPT_PREFIX=""
 ZSH_THEME_GIT_PROMPT_SUFFIX=""
 ZSH_THEME_GIT_PROMPT_DIRTY=""
@@ -108,6 +110,7 @@ PROMPT+=" $last_command_output%#$reset "
 if [[ "${AUTOSUGGESTION}" == "true" ]]; then
     zle-line-init() {
         zle autosuggest-start
+        echoti smkx
     }
     zle -N zle-line-init
 
