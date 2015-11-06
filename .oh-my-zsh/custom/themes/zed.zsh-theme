@@ -74,7 +74,7 @@ local current_dir="%~"
 local username_output="%(!..$username_normal_color$username_command$cyan@)"
 local hostname_output="$hostname_color$hostname_command$reset"
 local current_dir_output="$current_dir_color$current_dir$reset"
-local jobs_bg="${bred}fg: %j$reset"
+local jobs_bg="${red}[${redb}fg: %j$reset${red}]$reset"
 local last_command_output="%(?.%(!.$redb.$greenb).$yellowb)"
 
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=blue,fg=white,bold'
@@ -92,7 +92,7 @@ ZSH_THEME_GIT_PROMPT_AHEAD_REMOTE="$yellowb>"
 ZSH_THEME_GIT_PROMPT_BEHIND_REMOTE="$yellowb<"
 ZSH_THEME_GIT_PROMPT_DIVERGED_REMOTE="$redb<>"
 
-PROMPT='$username_output$hostname_output:$current_dir_output%1(j. [$jobs_bg].)'
+PROMPT='$username_output$hostname_output:$current_dir_output%1(j. $jobs_bg.)'
 GIT_PROMPT='$(out=$(git_prompt_info)$(git_prompt_status)$(git_remote_status);if [[ -n $out ]]; then printf %s " $whiteb($reset$yellow$out$whiteb)$reset";fi)'
 
 if [[ "${RPROMPT_MODE}" == 2 ]]; then
