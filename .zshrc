@@ -95,6 +95,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias tmux='tmux -2'
+alias apts='apt-cache search'
+# always going to sudo these
+alias aptg='sudo apt-get install'
+alias aptr='sudo apt-get remove'
+alias aptp='sudo apt-get purge'
 
 if [ -f $HOME/.private_aliases ]; then
     . $HOME/.private_aliases

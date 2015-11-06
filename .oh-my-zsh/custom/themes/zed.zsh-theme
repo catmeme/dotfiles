@@ -126,6 +126,14 @@ if [[ "${ENHANCED_COMPLETION}" == "true" ]]; then
     # generate descriptions with magic.
     zstyle ':completion:*' auto-description 'specify: %d'
 
+    # man page completion (command params)
+    zstyle ':completion:*:manuals'    separate-sections true
+    zstyle ':completion:*:manuals.*'  insert-sections   true
+    zstyle ':completion:*:man:*'      menu yes select
+
     # colored tab complete
     zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==34=34}:${(s.:.)LS_COLORS}")';
+
+
 fi
+
