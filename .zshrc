@@ -11,7 +11,7 @@ ZSH_THEME="zed"
 # 0 - no right prompt, all git info in the left
 # 1 - right prompt with git info, not async
 # 2 - right prompt with git info, async
-RPROMPT_MODE=2
+RPROMPT_MODE=1
 
 # Autosuggest -- requires in order: zsh-syntax-highlighting zsh-autosuggestions
 AUTOSUGGESTION="true"

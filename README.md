@@ -9,12 +9,12 @@ By default, `zed.zsh-theme` requires the following plugins, which are not includ
 
 ###### zsh-syntax-highlighting
 ```
-git clone git://github.com/tarruda/zsh-syntax-highlightin ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting 
+git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting 
 ```
 
 ###### zsh-autosuggestions
 ```
-git clone git://github.com/jimmijj/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions 
+git clone git://github.com/tarruda/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions 
 ```
 
 These plugins are used to simulate [fish](http://fishshell.com)-like behavior.
