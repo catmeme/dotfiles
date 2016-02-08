@@ -96,11 +96,38 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias tmux='tmux -2'
 alias apts='apt-cache search'
+alias aptu='apt-get update'
 # always going to sudo these
-alias aptg='sudo apt-get install'
+alias aptup='sudo apt-get upgrade'
+alias aptud='sudo apt-get dist-upgrade'
+alias apti='sudo apt-get install'
 alias aptr='sudo apt-get remove'
 alias aptp='sudo apt-get purge'
+alias dco='docker-compose'
 
 if [ -f $HOME/.private_aliases ]; then
     . $HOME/.private_aliases
 fi
+
+delete_branch() {
+    branch=$1
+    git branch -d $branch
+    if [[ "$status" == 0 ]]; then
+        echo "Not deleting from origin until issues above are resolved"
+        return 1
+    else
+        git push origin --delete $branch
+    fi
+}
+
+list_merged() {
+    for branch in `git branch -r --merged | grep -v HEAD`;do echo -e `git show --format="%ai %ar by %an" $branch | head -n 1` \\t$branch; done | sort -r
+}
+
+list_unmerged() {
+    for branch in `git branch -r --no-merged | grep -v HEAD`;do echo -e `git show --format="%ai %ar by %an" $branch | head -n 1` \\t$branch; done | sort -r
+}
+
+vboxshare() {
+    sudo mount -t vboxsf -o uid=$UID,gid=$(id -g) vbox-share ~/share
+}

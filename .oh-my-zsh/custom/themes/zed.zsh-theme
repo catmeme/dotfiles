@@ -108,14 +108,7 @@ PROMPT+=" $last_command_output%#$reset "
 
 # Autosuggest -- requires in order: zsh-syntax-highlighting zsh-autosuggestions
 if [[ "${AUTOSUGGESTION}" == "true" ]]; then
-    zle-line-init() {
-        zle autosuggest-start
-        echoti smkx
-    }
-    zle -N zle-line-init
-
-    AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=008'
-    AUTOSUGGESTION_ACCEPT_RIGHT_ARROW=1
+    AUTOSUGGESTION_HIGHLIGHT_STYLE='fg=008'
 fi
 
 # Completions
