@@ -39,7 +39,7 @@ ENHANCED_COMPLETION="true"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -61,13 +61,13 @@ ENHANCED_COMPLETION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git z zsh-syntax-highlighting zsh-history-substring-search zsh-autosuggestions)
+plugins=(git z zsh-syntax-highlighting zsh-autosuggestions history-substring-search docker)
 
 # User configuration
 
 export PATH="$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-# export MANPATH="/usr/local/man:$MANPATH"
-
+export MANPATH="/usr/local/man:$MANPATH"
+export PATH="$PATH":~/.node/bin
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
@@ -85,6 +85,9 @@ source $ZSH/oh-my-zsh.sh
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+# History
+unsetopt share_history
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh

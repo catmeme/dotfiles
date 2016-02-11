@@ -109,6 +109,8 @@ PROMPT+=" $last_command_output%#$reset "
 # Autosuggest -- requires in order: zsh-syntax-highlighting zsh-autosuggestions
 if [[ "${AUTOSUGGESTION}" == "true" ]]; then
     AUTOSUGGESTION_HIGHLIGHT_STYLE='fg=008'
+    ZSH_AUTOSUGGEST_CLEAR_WIDGETS=("${(@)ZSH_AUTOSUGGEST_CLEAR_WIDGETS:#(up|down)-line-or-history}")
+    ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down)
 fi
 
 # Completions
