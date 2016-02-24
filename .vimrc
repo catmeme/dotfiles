@@ -1,6 +1,6 @@
 " .vimrc
 " Tyler Mulligan <z@interwebninja.com>
-" Last Updated 10/13/2010                 
+" Last Updated 02/24/2016
 
 set nocompatible        " don't keep vi bugs
 filetype off            " required
@@ -8,15 +8,14 @@ filetype off            " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" Plugins
+" My Plugins
 Plugin 'kien/tabman.vim'
 Plugin 'scrooloose/nerdtree'
+
 
 " Environment Basics
 set term=xterm-256color " for compatibility with tmux
@@ -61,7 +60,6 @@ map <C-H> <C-W>h<C-W>_
 map <C-J> <C-W>j<C-W>_
 map <C-K> <C-W>k<C-W>_
 map <C-L> <C-W>l<C-W>_
-nmap <leader>nt :NERDTreeToggle<cr>
 
 " Tab switching ctrl + left/right
 map <C-Left> <Esc>:tabprev<CR>
@@ -79,6 +77,9 @@ command W w !sudo tee % > /dev/null
 " SuperTab
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
+
+" Plugin hotkeys
+nmap <leader>nt :NERDTreeToggle<cr>
 
 " Omnomnomnom
 autocmd FileType python set omnifunc=pythoncomplete#Complete
