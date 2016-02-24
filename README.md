@@ -37,3 +37,12 @@ Uses screen-like binds and a nice looking theme.
 
 ### screen
 More informative clean theme.
+
+### vim
+
+Requires [vundle](https://github.com/VundleVim/Vundle.vim) for plugins (NERDtree, tabman).
+
+```
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim +PluginInstall +qall
+```

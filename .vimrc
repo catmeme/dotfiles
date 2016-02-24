@@ -2,8 +2,24 @@
 " Tyler Mulligan <z@interwebninja.com>
 " Last Updated 10/13/2010                 
 
-" Environment Basics
 set nocompatible        " don't keep vi bugs
+filetype off            " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" Plugins
+Plugin 'kien/tabman.vim'
+Plugin 'scrooloose/nerdtree'
+
+" Environment Basics
+set term=xterm-256color " for compatibility with tmux
 set shortmess+=I        " remove splash
 set virtualedit=all     " free roaming cursor
 set paste               " sane pasting
@@ -45,6 +61,17 @@ map <C-H> <C-W>h<C-W>_
 map <C-J> <C-W>j<C-W>_
 map <C-K> <C-W>k<C-W>_
 map <C-L> <C-W>l<C-W>_
+nmap <leader>nt :NERDTreeToggle<cr>
+
+" Tab switching ctrl + left/right
+map <C-Left> <Esc>:tabprev<CR>
+map <C-Right> <Esc>:tabnext<CR>
+"nnoremap <C-h> <Esc>:tabprev<CR>
+"nnoremap <C-l> <Esc>:tabnext<CR>
+
+" New Tab ctrl + t
+nnoremap <C-t> :tabnew<CR>
+inoremap <C-t> <Esc>:tabnew<CR>
 
 " sudo saver
 command W w !sudo tee % > /dev/null
@@ -65,3 +92,7 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 " Tab widths per filetype
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
