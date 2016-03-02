@@ -1,6 +1,6 @@
 " .vimrc
 " Tyler Mulligan <z@interwebninja.com>
-" Last Updated 03/01/2016
+" Last Updated 03/02/2016
 
 set nocompatible        " don't keep vi bugs
 filetype off            " required
@@ -69,7 +69,7 @@ set textwidth=100       " Line wrap # of cols
 set cursorline          " highlight current line
 set showmatch           " braces
 set incsearch           " search as you type
-set hlsearch
+set hlsearch            " highlight search term
 set wrap                " wrap text
 set wildmenu            " show commands at the bottom
 set wildmode=list:longest,full
@@ -98,8 +98,18 @@ nnoremap ,, <C-w><C-w>
 nnoremap ,v :split<enter>
 nnoremap ,h :vsplit<enter>
 
+" quick edit and reload of vimrc
+nnoremap <silent> <leader>ev :vsp $MYVIMRC<CR>
+nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
+
+" quicker :
+nnoremap ; :
+
+" clear search
+nmap <silent> <leader>/ :nohlsearch<CR>
+
 " sudo saver
-command W w !sudo tee % > /dev/null
+cmap w!! w !sudo tee % >/dev/null
 
 " SuperTab
 let g:SuperTabDefaultCompletionType = "context"
