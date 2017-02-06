@@ -1,4 +1,10 @@
 startup_message off
+scrollback 100000
 hardstatus off
 hardstatus alwayslastline
 hardstatus string '%{= kG}%{g}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %d/%M/%y %{W}%c:%s %{g}]'
+bindkey -k F2 stuff "-------------------------------------------------------------------------------------------------------------------------------------------------^M"
+#bindkey -k F2 stuff '_hr=$(printf "%*s" $(tput cols)) && echo ${_hr// /${1--}}'"^M"
+#bindkey -k F2 next
+#bind -x '"\C-l": clear; ls'
+#bind -x '"\C-h": clear; '
