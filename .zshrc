@@ -72,6 +72,13 @@ export MANPATH="/usr/local/man:$MANPATH"
 export PATH="$PATH":~/.node/bin
 source $ZSH/oh-my-zsh.sh
 
+# Detect OS
+if [[ $(uname) == 'Linux' ]]; then
+    export OS="linux"
+elif [[ $(uname) == 'Darwin' ]]; then
+    export OS="osx"
+fi
+
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -113,18 +120,27 @@ alias apti='sudo apt-get install'
 alias aptr='sudo apt-get remove'
 alias aptp='sudo apt-get purge'
 alias dco='docker-compose'
-alias atom='atom --enable-transparent-visuals --disable-gpu'
+alias dcd='docker-compose down --remove-orphans'
 
 if [ -f $HOME/.private_aliases ]; then
     . $HOME/.private_aliases
 fi
 
+# fix VTE issues
 bindkey -e
 bindkey '^L' push-line
 bindkey '^[[5C' forward-word
 bindkey '^[[5D' backward-word
 bindkey '^[[H' beginning-of-line
 bindkey '^[[F' end-of-line
+
+rule() {
+    _hr=$(printf "%*s" $(tput cols)) && echo ${_hr// /${1--}}
+}
+
+zshp_up() {
+    for d in $(find ${HOME}/.oh-my-zsh/custom/plugins/ -maxdepth 1 -type d); do cd $d; git pull; cd -; done
+}
 
 delete_branch() {
     branch=$1
@@ -145,30 +161,20 @@ list_unmerged() {
     for branch in `git branch -r --no-merged | grep -v HEAD`;do echo -e `git show --format="%ai %ar by %an" $branch | head -n 1` \\t$branch; done | sort -r
 }
 
-vboxshare() {
-    sudo mount -t vboxsf -o uid=$UID,gid=$(id -g) vbox-share ~/share
-}
-
-alias setclip='xclip -selection c'
-alias getclip='xclip -selection clipboard -o'
-
 lssh() { grep "Host " ~/.ssh/config |awk '{ print $2 }'; }
 
-source /etc/profile.d/vte.sh
+if [[ ${OS} == "linux" ]]; then
+    vboxshare() {
+        sudo mount -t vboxsf -o uid=$UID,gid=$(id -g) vbox-share ~/share
+    }
 
-rule() {
-    _hr=$(printf "%*s" $(tput cols)) && echo ${_hr// /${1--}}
-}
+    alias setclip='xclip -selection c'
+    alias getclip='xclip -selection clipboard -o'
+    alias atom='atom --enable-transparent-visuals --disable-gpu'
 
-jn() {
-    source $HOME/dev/jupyter/venv/bin/activate && jupyter notebook
-}
+    source /etc/profile.d/vte.sh
 
-vboxclip() {
-  pkill 'VBoxClient --clipboard' -f & sleep 1 && VBoxClient --clipboard
-}
-
-zshp_up() {
-    for d in $(find ${HOME}/.oh-my-zsh/custom/plugins/ -maxdepth 1 -type d); do cd $d; git pull; cd -; done
-}
-alias ddr='docker-compose down --remove-orphans'
+    vboxclip() {
+      pkill 'VBoxClient --clipboard' -f & sleep 1 && VBoxClient --clipboard
+    }
+fi
