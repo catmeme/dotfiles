@@ -1,5 +1,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
+export DISABLE_AUTO_TITLE="true"
+#export SSH_AUTH_SOCK=/home/username/.ssh/id_rsa
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -61,7 +63,7 @@ ENHANCED_COMPLETION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git z zsh-syntax-highlighting zsh-autosuggestions history-substring-search docker)
+plugins=(git z zsh-syntax-highlighting zsh-autosuggestions history-substring-search history-search-multi-word docker)
 
 # User configuration
 
@@ -91,6 +93,7 @@ zstyle ':completion:*' rehash true
 
 # History
 unsetopt share_history
+setopt INC_APPEND_HISTORY
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -110,10 +113,18 @@ alias apti='sudo apt-get install'
 alias aptr='sudo apt-get remove'
 alias aptp='sudo apt-get purge'
 alias dco='docker-compose'
+alias atom='atom --enable-transparent-visuals --disable-gpu'
 
 if [ -f $HOME/.private_aliases ]; then
     . $HOME/.private_aliases
 fi
+
+bindkey -e
+bindkey '^L' push-line
+bindkey '^[[5C' forward-word
+bindkey '^[[5D' backward-word
+bindkey '^[[H' beginning-of-line
+bindkey '^[[F' end-of-line
 
 delete_branch() {
     branch=$1
@@ -137,3 +148,27 @@ list_unmerged() {
 vboxshare() {
     sudo mount -t vboxsf -o uid=$UID,gid=$(id -g) vbox-share ~/share
 }
+
+alias setclip='xclip -selection c'
+alias getclip='xclip -selection clipboard -o'
+
+lssh() { grep "Host " ~/.ssh/config |awk '{ print $2 }'; }
+
+source /etc/profile.d/vte.sh
+
+rule() {
+    _hr=$(printf "%*s" $(tput cols)) && echo ${_hr// /${1--}}
+}
+
+jn() {
+    source $HOME/dev/jupyter/venv/bin/activate && jupyter notebook
+}
+
+vboxclip() {
+  pkill 'VBoxClient --clipboard' -f & sleep 1 && VBoxClient --clipboard
+}
+
+zshp_up() {
+    for d in $(find ${HOME}/.oh-my-zsh/custom/plugins/ -maxdepth 1 -type d); do cd $d; git pull; cd -; done
+}
+alias ddr='docker-compose down --remove-orphans'
