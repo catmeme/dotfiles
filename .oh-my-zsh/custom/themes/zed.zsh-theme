@@ -62,13 +62,13 @@ local username_root_color=$redb
 local hostname_root_color=$redb
 
 # calculating hostname color with hostname characters
-for i in `hostname`; local hostname_normal_color=$color_array[$[((#i))%7+1]]
+for i in "localhost"; local hostname_normal_color=$color_array[$[((#i))%7+1]]
 local -a hostname_color
 hostname_color=%(!.$hostname_root_color.$hostname_normal_color)
 
 local current_dir_color=$blueb
 local username_command="%n"
-local hostname_command="%m"
+local hostname_command="localhost"
 local current_dir="%~"
 
 local username_output="%(!..$username_normal_color$username_command$cyan@)"
@@ -93,16 +93,9 @@ ZSH_THEME_GIT_PROMPT_BEHIND_REMOTE="$yellowb<"
 ZSH_THEME_GIT_PROMPT_DIVERGED_REMOTE="$redb<>"
 
 PROMPT='$username_output$hostname_output:$current_dir_output%1(j. $jobs_bg.)'
-GIT_PROMPT='$(out=$(git_prompt_info)$(git_prompt_status)$(git_remote_status);if [[ -n $out ]]; then printf %s " $whiteb($reset$yellow$out$whiteb)$reset";fi)'
+GIT_PROMPT='$(out=$(git_prompt_info)$(git_prompt_status)$(git_remote_status);if [[ -n $out ]]; then printf %s " $whiteb($reset$yellow$out$whiteb)$reset $blue| ";fi)'
 
-if [[ "${RPROMPT_MODE}" == 2 ]]; then
-    # ASYNC Right-hand prompt
-    ASYNC_RPROMPT="$GIT_PROMPT"
-elif [[ "${RPROMPT_MODE}" == 1 ]]; then
-    RPROMPT="$GIT_PROMPT"
-else
-    PROMPT+="$GIT_PROMPT"
-fi
+RPROMPT=${GIT_PROMPT}'%F{green}%D{%L:%M} %F{yellow}%D{%p}'
 
 PROMPT+=" $last_command_output%#$reset "
 
