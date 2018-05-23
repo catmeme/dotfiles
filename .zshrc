@@ -121,6 +121,7 @@ alias aptr='sudo apt-get remove'
 alias aptp='sudo apt-get purge'
 alias dco='docker-compose'
 alias dcd='docker-compose down --remove-orphans'
+alias lssh="grep 'Host ' ~/.ssh/config |cut -f2 -d ' '"
 
 if [ -f $HOME/.private_aliases ]; then
     . $HOME/.private_aliases
@@ -161,7 +162,6 @@ list_unmerged() {
     for branch in `git branch -r --no-merged | grep -v HEAD`;do echo -e `git show --format="%ai %ar by %an" $branch | head -n 1` \\t$branch; done | sort -r
 }
 
-lssh() { grep "Host " ~/.ssh/config |awk '{ print $2 }'; }
 
 if [[ ${OS} == "linux" ]]; then
     vboxshare() {
@@ -178,3 +178,10 @@ if [[ ${OS} == "linux" ]]; then
       pkill 'VBoxClient --clipboard' -f & sleep 1 && VBoxClient --clipboard
     }
 fi
+
+ssh_copy_id() {
+    local ssh_connection=${1}
+    local ssh_key=${2:-~/.ssh/id_rsa.pub}
+    if [[ "${ssh_connection}" == "" ]]; then echo "ssh connection string required"; exit 1; fi
+    cat ${ssh_key} | ssh ${ssh_connection} "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >> ~/.ssh/authorized_keys"
+}
