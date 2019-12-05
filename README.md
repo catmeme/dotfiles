@@ -11,12 +11,12 @@ By default, `zed.zsh-theme` requires the following plugins, which are not includ
 
 #### Plugins
 
-###### zsh-autosuggestions
+###### history-search-multi-word
 
 [more info](https://github.com/zdharma/history-search-multi-word)
 
 ```
-git clone git://github.com/zdharma/history-search-multi-word.git ~/.oh-my-zsh/custom/plugins/history-search-multi-word.git
+git clone git://github.com/zdharma/history-search-multi-word.git ~/.oh-my-zsh/custom/plugins/history-search-multi-word
 ```
 
 ###### zsh-syntax-highlighting
