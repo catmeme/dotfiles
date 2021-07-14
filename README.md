@@ -5,9 +5,25 @@ A collection of my dotfiles for both servers and clients.
 ### zsh
 
 To use the zsh dotfiles, you must first install [zsh](http://www.zsh.org/) and [oh-my-zsh](http://ohmyz.sh/).
-Be sure to copy both `.zshrc` and `.oh-my-zsh/` to your home directory.
 
-By default, `zed.zsh-theme` requires the following plugins, which are not included with oh-my-zsh:
+Copy zsh files to your home directory:
+
+```
+cp -R .zshrc ~
+cp -R .oh-my-zsh ~
+```
+
+This `~/.zshrc` requires the following theme and plugins, which are not included with oh-my-zsh:
+
+#### Theme
+
+##### powerlevel10k
+
+[more info](https://github.com/romkatv/powerlevel10k)
+
+```
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+```
 
 #### Plugins
 

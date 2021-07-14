@@ -1,13 +1,20 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
-export DISABLE_AUTO_TITLE="true"
 #export SSH_AUTH_SOCK=/home/username/.ssh/id_rsa
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="zed"
+#ZSH_THEME="zed"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # zed theme allows THREE RPROMPT MODES:
 # 0 - no right prompt, all git info in the left
@@ -38,13 +45,13 @@ ENHANCED_COMPLETION="true"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -55,6 +62,8 @@ ENHANCED_COMPLETION="true"
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # HIST_STAMPS="mm/dd/yyyy"
+HISTSIZE=1000000000
+SAVEHIST=1000000000
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -71,6 +80,8 @@ export PATH="$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/
 export MANPATH="/usr/local/man:$MANPATH"
 export PATH="$PATH":~/.node/bin
 source $ZSH/oh-my-zsh.sh
+export PATH=$PATH:$HOME/go/bin
+# REPORTTIME=10
 
 # Detect OS
 if [[ $(uname) == 'Linux' ]]; then
@@ -99,6 +110,7 @@ fi
 zstyle ':completion:*' rehash true
 
 # History
+# unsetopt SHARE_HISTORY
 unsetopt share_history
 setopt INC_APPEND_HISTORY
 
@@ -107,21 +119,6 @@ setopt INC_APPEND_HISTORY
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-alias tmux='tmux -2'
-alias apts='apt-cache search'
-alias aptu='apt-get update'
-# always going to sudo these
-alias aptup='sudo apt-get upgrade'
-alias aptud='sudo apt-get dist-upgrade'
-alias apti='sudo apt-get install'
-alias aptr='sudo apt-get remove'
-alias aptp='sudo apt-get purge'
-alias dco='docker-compose'
-alias dcd='docker-compose down --remove-orphans'
-alias lssh="grep 'Host ' ~/.ssh/config |cut -f2 -d ' '"
 
 if [ -f $HOME/.private_aliases ]; then
     . $HOME/.private_aliases
@@ -135,53 +132,8 @@ bindkey '^[[5D' backward-word
 bindkey '^[[H' beginning-of-line
 bindkey '^[[F' end-of-line
 
-rule() {
-    _hr=$(printf "%*s" $(tput cols)) && echo ${_hr// /${1--}}
-}
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-zshp_up() {
-    for d in $(find ${HOME}/.oh-my-zsh/custom/plugins/ -maxdepth 1 -type d); do cd $d; git pull; cd -; done
-}
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-delete_branch() {
-    branch=$1
-    git branch -d $branch
-    if [[ "$status" == 0 ]]; then
-        echo "Not deleting from origin until issues above are resolved"
-        return 1
-    else
-        git push origin --delete $branch
-    fi
-}
-
-list_merged() {
-    for branch in `git branch -r --merged | grep -v HEAD`;do echo -e `git show --format="%ai %ar by %an" $branch | head -n 1` \\t$branch; done | sort -r
-}
-
-list_unmerged() {
-    for branch in `git branch -r --no-merged | grep -v HEAD`;do echo -e `git show --format="%ai %ar by %an" $branch | head -n 1` \\t$branch; done | sort -r
-}
-
-
-if [[ ${OS} == "linux" ]]; then
-    vboxshare() {
-        sudo mount -t vboxsf -o uid=$UID,gid=$(id -g) vbox-share ~/share
-    }
-
-    alias setclip='xclip -selection c'
-    alias getclip='xclip -selection clipboard -o'
-    alias atom='atom --enable-transparent-visuals --disable-gpu'
-
-    source /etc/profile.d/vte.sh
-
-    vboxclip() {
-      pkill 'VBoxClient --clipboard' -f & sleep 1 && VBoxClient --clipboard
-    }
-fi
-
-ssh_copy_id() {
-    local ssh_connection=${1}
-    local ssh_key=${2:-~/.ssh/id_rsa.pub}
-    if [[ "${ssh_connection}" == "" ]]; then echo "ssh connection string required"; exit 1; fi
-    cat ${ssh_key} | ssh ${ssh_connection} "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >> ~/.ssh/authorized_keys"
-}
